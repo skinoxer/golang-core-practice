@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نقشه راه ۳۰ فصلی گولنگ و سفارش‌های کارفرما</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a; --bg-secondary: #1e293b; --bg-card: #182234;
+            --accent-cyan: #38bdf8; --accent-indigo: #818cf8; --accent-emerald: #34d399;
+            --accent-amber: #fbbf24; --accent-rose: #f43f5e; --text-main: #f8fafc;
+            --text-muted: #94a3b8; --border-color: #334155; --radius-md: 12px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
+        body { background-color: var(--bg-primary); color: var(--text-main); line-height: 1.8; padding: 24px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 24px; padding: 20px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); }
+        header h1 { font-size: 1.8rem; font-weight: 800; color: var(--accent-cyan); margin-bottom: 6px; }
+        .progress-box { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px; }
+        .progress-bar-bg { background-color: #0b1120; height: 12px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); }
+        .progress-bar-fill { background: linear-gradient(90deg, #38bdf8, #34d399); height: 100%; width: 0%; transition: width 0.3s ease; }
+        .chapter-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 16px; }
+        .chapter-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; margin-bottom: 12px; }
+        .checkbox-label { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
+        .custom-chk { width: 22px; height: 22px; cursor: pointer; }
+        .grid-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 10px; font-size: 0.88rem; }
+        .detail-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 10px; border-radius: 8px; }
+        .detail-item strong { color: var(--accent-indigo); display: block; margin-bottom: 2px; }
+        .brief-box { background: rgba(15,23,42,0.7); border-right: 4px solid var(--accent-cyan); padding: 12px; margin-top: 10px; border-radius: 0 8px 8px 0; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>نقشه راه ۳۰ فصلی مهارت‌های Go و سفارش‌های کارفرما</h1>
+        <p>برنامه تفکیک‌شده فصل‌به‌فصل: تکالیف دوره، مطالعه کتب مرجع، سورس‌کد خوانی و خواسته‌های کارفرما</p>
+    </header>
+
+    <div class="progress-box">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-weight:600;">
+            <span>میزان پیشرفت شما در ۳۰ فصل دوره و پروژه‌های ارشد</span>
+            <span id="progress-text" style="color:var(--accent-cyan);">۰٪</span>
+        </div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    </div>
+
+    <div id="chapters-container"></div>
+</div>
+
+<script>
+const chapters = [
+    { id: 1, title: "فصل ۱: چرا Golang؟، آشنایی و بازار کار", book: "Learning Go: فصل ۱ (صفحه ۱ تا ۱۵)", mistakes: "فصل ۱ (اشتباهات کلی زبان Go)", source: "نیازی نیست", brief: "نصب ابزارها، کامپایلر Go و اجرای موفق دستور go version." },
+    { id: 2, title: "فصل ۲: راه‌اندازی، پکیج، ماژول و Go CLI", book: "Learning Go: فصل ۲ (صفحه ۱۶ تا ۲۵)", mistakes: "اشتباه #12 (ساختار پروژه) و #14 (تداخل نام پکیج)", source: "نیازی نیست", brief: "ساخت ماژول معتبر با go mod init و اجرای برنامه با go build و go run ." },
+    { id: 3, title: "فصل ۳: حافظه، انواع داده پایه، اشاره‌گرها و Rune", book: "Learning Go: فصل ۲ و ۶ (صفحه ۲۶ تا ۵۵)", mistakes: "اشتباه #17 (اعداد هشت‌هشتی)، #18 (سرریز اعداد)، #19 (اعشاری) و #36 (مفهوم Rune)", source: "builtin/builtin.go (تعاریف rune و byte)", brief: "کد مقایسه طول کاراکتر و بایت در متون فارسی و تغییر متغیر با اشاره‌گر." },
+    { id: 4, title: "فصل ۴: متغیرها، Constantها و توابع کار با رشته", book: "Learning Go: فصل ۲ و ۴ (صفحه ۴۹ تا ۶۵)", mistakes: "اشتباه #1 (متغیرهای Shadowed)، #37 (پیمایش رشته) و #38 (توابع Trim)", source: "strings/strings.go (توابع Split و Join)", brief: "اسکریپت پاک‌سازی فاصله‌های اضافه و استانداردسازی فرمت ورودی‌ها." },
+    { id: 5, title: "فصل ۵: ساختارهای شرطی (If, Else, Switch, Fallthrough)", book: "Learning Go: فصل ۴ (صفحه ۶۶ تا ۷۸)", mistakes: "اشتباه #2 (حذف کدهای تودرتو) و #34 (رفتار break در سوئیچ)", source: "strconv/atoi.go (سبک Guard Clause)", brief: "موتور تعیین سطح دسترسی با switch تمیز و بدون elseهای تودرتو." },
+    { id: 6, title: "فصل ۶: ساختار حلقه (انواع For, Break, Continue)", book: "Learning Go: فصل ۴ (صفحه ۷۹ تا ۹۰)", mistakes: "اشتباه #31 (ارزیابی آرگومان حلقه) و #35 (دیفر در حلقه)", source: "نیازی نیست", brief: "الگوریتم یافتن پرتکرارترین کلمه با سقف حافظه ثابت." },
+    { id: 7, title: "فصل ۷: اسلایس‌ها، مپ‌ها و مسئله Two Sum", book: "Learning Go: فصل ۳ (صفحه ۹۱ تا ۱۲۵)", mistakes: "اشتباه #20 تا #28 (طول و ظرفیت، نشت حافظه اسلایس و مپ) و #30 و #33", source: "strings/builder.go (مدیریت اسلایس بایت)", brief: "الگوریتم Two Sum با زمان O(n) و پیش‌تخصیص ظرفیت مپ." },
+    { id: 8, title: "فصل ۸: توابع، بستارها (Closures) و دستور Defer", book: "Learning Go: فصل ۵ (صفحه ۱۲۶ تا ۱۵۵)", mistakes: "اشتباه #43 و #44 (Named Returns) و #47 (ارزیابی متغیر در defer)", source: "os/file.go (نحوه کارکرد defer با بستن فایل)", brief: "مینی‌پروژه رزرو کنسولی هتل با بستارها برای نگهداری سابقه." },
+    { id: 9, title: "فصل ۹: استراکت، متدها و شیءگرایی در Go", book: "Learning Go: فصل ۶ و ۷ (صفحه ۱۵۶ تا ۱۹۵)", mistakes: "اشتباه #4 (گتر و ستر)، #10 (تعبیه نوع)، #11 (Functional Options) و #42 (نوع ریسیور)", source: "net/http/server.go (استراکت Server)", brief: "مینی‌پروژه ۱: سبد خرید و تخفیف با Functional Options Pattern." },
+    { id: 10, title: "فصل ۱۰: اینترفیس‌ها (Interfaces) و چندریختی", book: "Learning Go: فصل ۸ (صفحه ۱۹۶ تا ۲۲۵)", mistakes: "اشتباه #5 تا #8 (کشف اینترفیس، سمت مصرف‌کننده) و #45 (ریسیور نیل) و #46", source: "io/io.go (اینترفیس‌های Reader و Writer)", brief: "مینی‌پروژه ۲: آداپتور درگاه‌های پرداخت چندگانه (Zarinpal, Saman, Mock)." },
+    { id: 11, title: "فصل ۱۱: پکیج‌ها، ماژول‌ها و Go Workspaces", book: "Learning Go: فصل ۹ (صفحه ۲۲۶ تا ۲۵۰)", mistakes: "اشتباه #13 (پرهیز از پکیج‌های utils) و #15 و #16 (لینترها)", source: "فایل go.mod مخزن gin-gonic/gin", brief: "راه‌اندازی ورک‌اسپیس go.work برای اجرای چند ماژول بدون تداخل." },
+    { id: 12, title: "فصل ۱۲: جنریک‌ها (Generics)", book: "Learning Go: فصل ۱۰ (صفحه ۲۵۱ تا ۲۸۰)", mistakes: "اشتباه #9 (استفاده اصولی از Generics)", source: "پکیج slices/slices.go در Go", brief: "مینی‌پروژه ۳: ساختار داده Set[T comparable] و متدهای Map/Filter جنریک." },
+    { id: 13, title: "فصل ۱۳: مدیریت خطاها (Custom Errors & Wrapping)", book: "Learning Go: فصل ۱۱ (صفحه ۲۸۱ تا ۳۰۰)", mistakes: "اشتباه #48 (Panic)، #49 تا #51 (Wrapping و errors.Is/As) و #52 تا #54", source: "errors/wrap.go (پیاده‌سازی عملگر w%)", brief: "سیستم خطای لایه‌بندی‌شده برای اعتبارسنجی ورودی با errors.Is." },
+    { id: 14, title: "فصل ۱۴: لاگینگ ساختاریافته با Zerolog", book: "Learning Go: فصل ۱۱ و ۱۴", mistakes: "اشتباه #52 (پرهیز از لاگ کردن و بازگرداندن همزمان خطا)", source: "مخزن rs/zerolog فایل event.go", brief: "مینی‌پروژه ۴: موتور احراز هویت با لاگ‌های JSON استاندارد Zerolog." },
+    { id: 15, title: "فصل ۱۵: همروندی (Goroutines, Channels, Mutex)", book: "Learning Go: فصل ۱۲ و ۱۳ (صفحه ۳۰۱ تا ۳۶۰)", mistakes: "اشتباه #55 تا #74 (بررسی جامع ۱۸ اشتباه همروندی، نشت، ریس و کانال‌ها)", source: "sync/once.go و errgroup", brief: "مینی‌پروژه ۵: بررسی سلامت سرورها با استخر کارگران (Worker Pool)." },
+    { id: 16, title: "فصل ۱۶: کار با JSON و ترفندهای داده", book: "Learning Go: فصل ۱۴ (صفحه ۳۶۱ تا ۳۸۰)", mistakes: "اشتباه #77 (خطاهای رایج JSON و ساعت مونوکلیک)", source: "encoding/json/decode.go", brief: "ماژول تبدیل داده‌های حجیم JSON با حداقل مصرف حافظه رم." },
+    { id: 17, title: "فصل ۱۷: وب و پروتکل HTTP با مدیریت Context", book: "Learning Go: فصل ۱۴ و ۱۵ (صفحه ۳۸۱ تا ۴۱۵)", mistakes: "اشتباه #60 و #61 (Context)، #76 (time.After)، #79 (بستن بادی) و #80 و #81", source: "context/context.go (درخت کانتکست)", brief: "مینی‌پروژه ۶: وب‌سرور استعلام زنده با مدیریت لغو درخواست در Context." },
+    { id: 18, title: "فصل ۱۸: تست‌نویسی، بنچمارک و TDD", book: "Learning Go: فصل ۱۶ (صفحه ۴۱۶ تا ۴۴۵)", mistakes: "اشتباه #82 تا #90 (جدول تست، فلگ race، پرهیز از sleep و بنچمارک دقیق)", source: "testing/testing.go و httptest", brief: "نوشتن تست‌های Table-Driven برای توابع پروژه به همراه Benchmark." },
+    { id: 19, title: "فصل ۱۹: معرفی فریمورک‌های وب (Gin, Echo, Fiber)", book: "مرور معماری‌های وب در Go", mistakes: "نیازی نیست", source: "بررسی مخزن gin-gonic/gin", brief: "آماده‌سازی ساختار پوشه‌بندی لایه‌ای پروژه جامع خودرو." },
+    { id: 20, title: "فصل ۲۰: کانتینریزاسیون با داکر (Docker & Compose)", book: "مرور مفاهیم داکرایز کردن", mistakes: "اشتباه #100 (تاثیر داکر و کوبرنتیز بر GOMAXPROCS)", source: "داکرفایلهای رسمی مخازن Go", brief: "مینی‌پروژه ۷: داکرفایل چندمرحله‌ای زیر ۳۰ مگابایت و Compose." },
+    { id: 21, title: "فصل ۲۱: پروژه خودرو — طراحی دیتابیس Postgres", book: "پایگاه‌های داده رابطه ای", mistakes: "نیازی نیست", source: "نیازی نیست", brief: "طراحی شمای دیتابیس Postgres شامل جداول کاربران، آگهی‌ها و قیمت‌ها." },
+    { id: 22, title: "فصل ۲۲: پروژه خودرو — راه‌اندازی Web API با Gin", book: "معماری Clean در وب‌سرویس", mistakes: "اشتباه #12 (ساختار پوشه‌بندی سازمانی)", source: "gin-gonic/gin فایل routergroup.go", brief: "اسکلت اولیه سرویس با فریمورک Gin و فایل تنظیمات .env." },
+    { id: 23, title: "فصل ۲۳: پروژه خودرو — روتینگ و Validation در Gin", book: "اعتبارسنجی ورودی‌های وب", mistakes: "نیازی نیست", source: "gin-gonic/gin فایل binding/binding.go", brief: "پیاده‌سازی Custom Validator برای سال تولید و قیمت خودرو." },
+    { id: 24, title: "فصل ۲۴: پروژه خودرو — ردیس، پستگرس، Swagger و CI", book: "مستندسازی و اتوماسیون", mistakes: "اشتباه #78 (کانکشن پول و پایگاه داده)", source: "مخزن swaggo/swag", brief: "مستندسازی Swagger و پایپلاین GitHub Actions برای تست خودکار." },
+    { id: 25, title: "فصل ۲۵: پروژه خودرو — لاگینگ متمرکز با ELK Stack", book: "مشاهده‌پذیری در محیط کانتینری", mistakes: "اشتباه #52 (لاگینگ صحیح)", source: "مخزن uber-go/zap", brief: "میان‌افزار لاگر برای ارسال متمرکز درخواست‌ها به Elasticsearch و Kibana." },
+    { id: 26, title: "فصل ۲۶: پروژه خودرو — احراز هویت، OTP و JWT", book: "امنیت نشست‌ها در وب", mistakes: "نیازی نیست", source: "نیازی نیست", brief: "سیستم لاگین پیامکی با محدودیت IP در Redis و صدور توکن JWT." },
+    { id: 27, title: "فصل ۲۷: پروژه خودرو — سرویس‌های پایه و CRUD جنریک", book: "طراحی کدهای بدون تکرار", mistakes: "اشتباه #9 (جنریک اصولی)", source: "نیازی نیست", brief: "سرویس جنریک CRUD برای اطلاعات شهرها و فیلترهای داینامیک." },
+    { id: 28, title: "فصل ۲۸: پروژه خودرو — مدیریت و دسته‌بندی آگهی‌ها", book: "منطق تجاری نرم‌افزار", mistakes: "اشتباه #94 (تراز داده‌ها در استراکت)", source: "نیازی نیست", brief: "تکمیل بیزینس خودرو با قابلیت آپلود تصاویر و فیلترهای چندبعدی." },
+    { id: 29, title: "فصل ۲۹: پروژه خودرو — مانیتورینگ با Prometheus و Grafana", book: "متریک‌های کارایی سرور", mistakes: "نیازی نیست", source: "مخزن prometheus/client_golang", brief: "تعریف متریک‌های سفارشی و طراحی داشبورد زنده در Grafana." },
+    { id: 30, title: "فصل ۳۰: پروژه خودرو — استقرار نهایی (Deploy)", book: "استقرار روی سرور لینوکسی", mistakes: "اشتباه #100 (تنظیم دقیق سهمیه CPU)", source: "نیازی نیست", brief: "دیپلوی کامل سیستم خودرو با داکر روی سرور واقعی (اتمام دوره)." },
+    { id: 31, title: "🔥 پروژه ارشد ۱: کیف‌پول بانکی ضد Deadlock با sqlc و gRPC", book: "Distributed Services: فصل ۱ تا ۵", mistakes: "اشتباه #58 (دفع Deadlock) و #96 (کاهش Allocation با sqlc)", source: "techschool/simplebank", brief: "هسته تراکنش‌های بانکی بدون ORM با sqlc، قفل‌های صفی و gRPC." },
+    { id: 32, title: "🔥 پروژه ارشد ۲: سیستم سفارشات با کافکا، Saga و Outbox", book: "Distributed Services: فصل ۶ تا ۸", mistakes: "الگوهای سیستم توزیع‌شده", source: "segmentio/kafka-go", brief: "میکروسرویس‌های رویدادمحور با Kafka، ساگا برای رول‌بک و MinIO S3." },
+    { id: 33, title: "🔥 پروژه ارشد ۳: کش توزیع‌شده با هش پیوسته و Singleflight", book: "Distributed Services: فصل ۹ تا ۱۱", mistakes: "اشتباهات #88 تا #100 (بهینه‌سازی حافظه و GC)", source: "mailgun/groupcache (فایل‌های lru و consistenthash)", brief: "کش توزیع‌شده با LRU، حلقه هش پیوسته و مهار طوفان کش با singleflight." }
+];
+
+function render() {
+    const container = document.getElementById("chapters-container");
+    const state = JSON.parse(localStorage.getItem("go_30_progress") || "{}");
+    container.innerHTML = "";
+
+    chapters.forEach(c => {
+        const isChecked = !!state[c.id];
+        container.innerHTML += `
+            <div class="chapter-card">
+                <div class="chapter-header">
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="custom-chk" id="chk-${c.id}" ${isChecked ? 'checked' : ''} onchange="toggle(${c.id})">
+                        <span>${c.title}</span>
+                    </label>
+                </div>
+                <div class="grid-details">
+                    <div class="detail-item"><strong>📘 کتاب Learning Go:</strong>${c.book}</div>
+                    <div class="detail-item"><strong>📕 کتاب 100 Go Mistakes:</strong>${c.mistakes}</div>
+                    <div class="detail-item"><strong>🔍 سورس‌کد خوانی:</strong>${c.source}</div>
+                </div>
+                <div class="brief-box"><strong>📋 سفارش و خواسته کارفرما:</strong> ${c.brief}</div>
+            </div>
+        `;
+    });
+    updateProgress();
+}
+
+function toggle(id) {
+    const state = JSON.parse(localStorage.getItem("go_30_progress") || "{}");
+    state[id] = !state[id];
+    localStorage.setItem("go_30_progress", JSON.stringify(state));
+    updateProgress();
+}
+
+function updateProgress() {
+    const state = JSON.parse(localStorage.getItem("go_30_progress") || "{}");
+    const completed = Object.values(state).filter(Boolean).length;
+    const total = chapters.length;
+    const percent = Math.round((completed / total) * 100);
+    document.getElementById("progress-text").innerText = `${percent}٪ (${completed} از ${total})`;
+    document.getElementById("progress-fill").style.width = `${percent}%`;
+}
+
+document.addEventListener("DOMContentLoaded", render);
+</script>
+</body>
+</html>
