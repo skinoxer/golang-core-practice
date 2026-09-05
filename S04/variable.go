@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"strings"
+)
+
 // import (
 // 	"fmt"
 // 	"strings"
@@ -89,8 +94,9 @@ func main() {
 
 	//println(strings.Repeat("iran ", 10))               //iran iran iran iran iran iran iran iran iran iran
 
-	//fmt.Println(strings.Replace(mystring, "go", "golang", 1)) //this is golanglang language golang !//* tavajo avalin go ke did ro taghir medi hata golan avalsh go dare
+	//* tavajo avalin go ke did ro taghir medi hata golan avalsh go dare
 
+	//fmt.Println(strings.Replace(mystring, "go", "golang", 1)) //this is golanglang language golang !
 	// println(strings.Compare("golang", "golang")) //0 true
 
 	// println(strings.Compare("Golang", "golang")) //-1 false return int
@@ -109,5 +115,10 @@ func main() {
 	// println(strings.Trim("IRAN          ", " "))
 	//println(strings.Trim("IRANzzzz!!", "!"))
 	// strings.ToUpper(mystring)
+	// *** practice S04 ***
+	name := "  HeLLO GOLang, Golang IS gReat!  "
+	fmt.Println(strings.Contains(name, "e"))
+	fmt.Println(strings.ContainsAny(name, "1Gl"))
+	fmt.Println(strings.ContainsAny(name, "1Gl"))
 
 }
