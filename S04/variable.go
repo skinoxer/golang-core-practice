@@ -12,6 +12,7 @@ import (
 
 // import "fmt"
 //var cz = "global"
+// AppName:="My-Go-App"
 
 func main() {
 	//*********** Vriable **************
@@ -116,7 +117,25 @@ func main() {
 	//println(strings.Trim("IRANzzzz!!", "!"))
 	// strings.ToUpper(mystring)
 	// *** practice S04 ***
+	// contains - count - cut - join and split - repeat - hasprifix and hassuffix
+	// replace and replaceall - compare and equalfold - index-tolowercase toupper and title - trim
+	//one sycle => contains cut replace Index
 	name := "  HeLLO GOLang, Golang IS gReat!  "
 	fmt.Println(strings.Contains(name, "e"))
 	fmt.Println(strings.ContainsAny(name, "1Gl"))
+	fmt.Println(strings.Cut(name, "G"))
+	fmt.Println(strings.Count(name, "G"))
+	newzarr := strings.Split(name, " ")
+	fmt.Println(newzarr)
+	fmt.Println(strings.Trim(strings.Join(newzarr, " "), " "))
+	fmt.Println(strings.Repeat(name, 10))
+	fmt.Println(strings.Replace(name, "ang", "ANG", 2))
+	fmt.Println(strings.Compare("go", "Golang"))
+	fmt.Println(strings.EqualFold("go", "Golang"))
+	// fmt.Println(strings.Index())
+	nrewzstr := strings.ToLower(name)
+	fmt.Println(nrewzstr)
+	fullName := "Mehdi-Almasifar"
+	z := strings.Split(fullName, "-")
+	fmt.Print(z)
 }
