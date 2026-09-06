@@ -51,11 +51,11 @@ func main() {
 	// default:
 	// 	println("😢")
 	// }
-	// ********** fallthrough *********
+	// ********** break *********
 	var month int
 	println("please enter your month")
 	fmt.Scanln(&month)
-//
+
 	var totaldays int = 0
 
 	switch month {
@@ -96,5 +96,4 @@ func main() {
 		totaldays += 31
 
 	}
-	println(totaldays)
 }
