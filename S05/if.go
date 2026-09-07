@@ -102,32 +102,33 @@ func main() {
 	fmt.Println("please enter your mounth in number")
 	fmt.Scanln(&mounth)
 
-	if mounth == 1 {
-		fmt.Println("farvardin")
+	//if mounth == 1 {
+	fmt.Println("farvardin")
 
-	} else if mounth == 2 {
-		fmt.Println("ordibesht")
-	} else if mounth == 3 {
-		fmt.Println("khordad")
-	} else if mounth == 4 {
-		fmt.Println("tir")
-	} else if mounth == 5 {
-		fmt.Println("mordad")
-	} else if mounth == 6 {
-		fmt.Println("sharivar")
-	} else if mounth == 7 {
-		fmt.Println("mehr")
-	} else if mounth == 8 {
-		fmt.Println("aban")
-	} else if mounth == 9 {
-		fmt.Println("azar")
-	} else if mounth == 10 {
-		fmt.Println("dey")
-	} else if mounth == 11 {
-		fmt.Println("bahman")
-	} else if mounth == 12 {
-		fmt.Println("esfand")
-	} else {
-		print("koskesh")
-	}
+	//} else if mounth == 2 {
+	fmt.Println("ordibesht")
+	//} else if mounth == 3 {
+	fmt.Println("khordad")
+	//} else if mounth == 4 {
+	fmt.Println("tir")
+	//} else if mounth == 5 {
+	fmt.Println("mordad")
+	//} else if mounth == 6 {
+	fmt.Println("sharivar")
+	//} else if mounth == 7 {
+	fmt.Println("mehr")
+	//} else if mounth == 8 {
+	fmt.Println("aban")
+	//} else if mounth == 9 {
+	fmt.Println("azar")
+	//} else if mounth == 10 {
+	fmt.Println("dey")
+	//} else if mounth == 11 {
+	fmt.Println("bahman")
+	//} else if mounth == 12 {
+	fmt.Println("esfand")
+	//} else {
+	print("koskesh")
+	//}
+
 }
