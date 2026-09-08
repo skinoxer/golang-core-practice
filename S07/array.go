@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 	// arr[]
 	// arr[0][1] row 0 coulmn 1
@@ -16,9 +14,9 @@ func main() {
 	//		break
 	//	}
 	//}
-	numbers := [8]int{1, 2, 3, 4, 5, 6, 7, 8}
-
-	number2 := &numbers
+	//numbers := [8]int{1, 2, 3, 4, 5, 6, 7, 8}
+	//
+	//number2 := &numbers
 
 	// println(&numbers)
 	// println(&number2)
@@ -26,22 +24,24 @@ func main() {
 	// fmt.Printf("numbers: %v\n", numbers)
 	// fmt.Printf("numbers: %v\n", number2)
 
-	println(&numbers)
-	println(&number2)
-	println(number2)
-	number2[0] = 22
-	fmt.Printf("numbers: %v\n", numbers)
-	fmt.Printf("numbers: %v\n", number2)
-	fmt.Println("=================================")
+	//println(&numbers)
+	//println(&number2)
+	//println(number2)
+	//number2[0] = 22
+	//fmt.Printf("numbers: %v\n", numbers)
+	//fmt.Printf("numbers: %v\n", number2)
+	//fmt.Println("=================================")
+	//
+	//changevalue(&numbers)
+	//changevalue(number2)
+	//
+	//fmt.Printf("numbers: %v\n", numbers)
+	//fmt.Printf("numbers: %v\n", number2)
+	// slice pointer to arrey
 
-	changevalue(&numbers)
-	changevalue(number2)
-
-	fmt.Printf("numbers: %v\n", numbers)
-	fmt.Printf("numbers: %v\n", number2)
 }
 
-func changevalue(arr *[8]int) {
-	arr[3] = 77
-	arr[2] = 12
-}
+//func changevalue(arr *[8]int) {
+//	arr[3] = 77
+//	arr[2] = 12
+// }
