@@ -22,14 +22,12 @@ func main() {
 		fmt.Println("enter command  ")
 		fmt.Println("1:Room Lists ")
 		fmt.Println("2:Add Room ")
-		fmt.Println("3:Reserve Room ")
 		fmt.Scanln(&input)
 		switch input {
 		case "1":
 			getRoomList(RoomList)
 		case "2":
 			addRoom(&RoomList)
-
 		case "exit":
 			fmt.Println("Exitning...")
 			break
