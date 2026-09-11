@@ -48,9 +48,12 @@ func getRoomList(RoomList []Room) {
 func addRoom(RoomList *[]Room) {
 
 	fmt.Println("what type or room do you want (single, double,vip)")
-	input1 := ""
-	fmt.Scanln(&input1)
-	if input1 != "single" && input1 != "double" && input1 != "vip" {
+
+	Type := ""
+
+	fmt.Scanln(&Type)
+
+	if Type != "single" && Type != "double" && Type != "vip" {
 		println("please enter single double or vip")
 		return
 	}
@@ -59,19 +62,24 @@ func addRoom(RoomList *[]Room) {
 	input2 := ""
 
 	fmt.Scanln(&input2)
-	s, err := strconv.Atoi(input2)
+	numberOfBed, err := strconv.Atoi(input2)
 
 	if err != nil && s <= 0 {
 		fmt.Println("you need type number")
 		return
 
 	}
-	id := 0
+	lastId := 0
 	for i := 0; i < len(*RoomList); i++ {
-		id = (*RoomList)[i].Id
+		lastId = (*RoomList)[i].Id
 	}
+	room := Room{Status: false}
 
-	*RoomList = append(*RoomList, Room{Id: id + 1, Type: input1, BedCount: s, Price: (s * 200), Status: true})
+	room.Id = lastId + 1
+	room.Type = Type
+	room.BedCount = numberOfBed
+	room.Price = numberOfBed * 200
+	*RoomList = append(*RoomList, room)
 
 }
 
