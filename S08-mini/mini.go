@@ -64,7 +64,7 @@ func addRoom(RoomList *[]Room) {
 	fmt.Scanln(&input2)
 	numberOfBed, err := strconv.Atoi(input2)
 
-	if err != nil && s <= 0 {
+	if err != nil || numberOfBed <= 0 {
 		fmt.Println("you need type number")
 		return
 
