@@ -19,8 +19,8 @@ func main() {
 
 	input := ""
 	for input != "exit" {
-		fmt.Println("enter command  ")
-		fmt.Println("1:Room Lists ")
+		fmt.Println("enter command")
+		fmt.Println("1:Room Lists")
 		fmt.Println("2:Add Room ")
 		fmt.Scanln(&input)
 		switch input {
@@ -29,7 +29,7 @@ func main() {
 		case "2":
 			addRoom(&RoomList)
 		case "exit":
-			fmt.Println("Exitning...")
+			fmt.Println("Exitning")
 			break
 		default:
 			println("invalid income")
